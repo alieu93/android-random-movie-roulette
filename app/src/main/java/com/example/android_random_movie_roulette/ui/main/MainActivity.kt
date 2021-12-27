@@ -2,26 +2,15 @@ package com.example.android_random_movie_roulette.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.android_random_movie_roulette.R
-import com.example.android_random_movie_roulette.ui.base.BaseActivity
-import com.example.android_random_movie_roulette.ui.main.MainAdapter
-import com.example.android_random_movie_roulette.ui.main.MainViewHolder
 
-class MainActivity : BaseActivity() {
-    private lateinit var mMainViewHolder: MainViewHolder
-    private lateinit var mAdapter : MainAdapter
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
-    }
-
-    override fun initialize(state: Bundle?) {
-        TODO("Not yet implemented")
-    }
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getLayoutId())
-
+        setContentView(R.layout.activity_main)
     }
 }

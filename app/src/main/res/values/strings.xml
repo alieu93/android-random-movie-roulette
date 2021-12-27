@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">android-random-movie-roulette</string>
+    <string name="app_name">Random Movie Roulette</string>
+    <string name="landing_page_button">Spin the roulette!</string>
 </resources>

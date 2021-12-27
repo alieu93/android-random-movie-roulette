@@ -1,0 +1,22 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/random_roulette_nav_graph"
+    app:startDestination="@id/landingFragment">
+
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.example.android_random_movie_roulette.ui.landing.LandingPageFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing" >
+        <action
+            android:id="@+id/action_landingFragment_to_movieResultActivity"
+            app:destination="@id/movieResultActivity"/>
+    </fragment>
+
+    <activity
+        android:id="@+id/movieResultActivity"
+        android:name="com.example.android_random_movie_roulette.ui.movieresult.MovieResultActivity"
+        android:label="activity_video"
+        tools:layout="@layout/activity_movie_results" />
+</navigation>
