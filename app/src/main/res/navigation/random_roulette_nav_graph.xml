@@ -2,21 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/random_roulette_nav_graph"
-    app:startDestination="@id/landingFragment">
+    app:startDestination="@id/landing_page_fragment">
 
     <fragment
-        android:id="@+id/landingFragment"
+        android:id="@+id/landing_page_fragment"
         android:name="com.example.android_random_movie_roulette.ui.landing.LandingPageFragment"
-        android:label="fragment_landing"
-        tools:layout="@layout/fragment_landing" >
+        android:label="@string/landing_page_fragment"
+        tools:layout="@layout/fragment_landing">
         <action
             android:id="@+id/action_landingFragment_to_movieResultActivity"
-            app:destination="@id/movieResultActivity"/>
+            app:destination="@id/movie_result_activity" />
     </fragment>
 
     <activity
-        android:id="@+id/movieResultActivity"
+        android:id="@+id/movie_result_activity"
         android:name="com.example.android_random_movie_roulette.ui.movieresult.MovieResultActivity"
-        android:label="activity_video"
-        tools:layout="@layout/activity_movie_results" />
+        android:label="@string/movie_result_activity"
+        tools:layout="@layout/activity_movie_results"/>
 </navigation>
