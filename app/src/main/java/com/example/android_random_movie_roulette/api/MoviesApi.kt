@@ -7,9 +7,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MoviesApi {
-    @GET("movies")
+    @GET("movie")
     suspend fun getDiscoverMovieList(
         @Query("page") page: String,
-        @Query("key") key: String = API_KEY): Response<MovieResponseList>
-
+        @Query("api_key") key: String = API_KEY): Response<MovieResponseList>
 }
