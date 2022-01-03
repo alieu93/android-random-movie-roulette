@@ -10,8 +10,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android_random_movie_roulette.models.MovieResponse
 import com.example.android_random_movie_roulette.models.MovieResponseList
 import com.example.android_random_movie_roulette.repository.MoviesRepository
+import com.example.android_random_movie_roulette.utils.Constants.Companion.RANDOM_MOVIE_LOWER_BOUND
+import com.example.android_random_movie_roulette.utils.Constants.Companion.RANDOM_MOVIE_UPPER_BOUND
 import com.example.android_random_movie_roulette.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -20,16 +23,23 @@ import java.io.IOException
 class MovieResultViewModel(private val application: Application,
                            private val repository: MoviesRepository) : ViewModel() {
 
-    private var _results = MutableLiveData<Resource<MovieResponseList>>()
-    val results: LiveData<Resource<MovieResponseList>> = _results
+
+    private var _results = MutableLiveData<Resource<MovieResponse>>()
+    val results: LiveData<Resource<MovieResponse>> = _results
 
 
     fun getRandomMovie() = viewModelScope.launch {
+        var retryCount = 0
         _results.postValue(Resource.Loading())
         Log.d("RandomMovie", "getRandomMovie running")
         try {
             if (hasInternetConnection()) {
-                val randomMovieList = repository.getRandomMovies((1..500).random().toString())
+                var randomMovieList = getRandomMovieQuery()
+
+                if (randomMovieList.code() == 404 && retryCount < 3) {
+                    retryCount++
+                    randomMovieList = getRandomMovieQuery()
+                }
                 _results.postValue(handleRandomMovieListResponse(randomMovieList))
             }
         } catch (t: Throwable) {
@@ -40,7 +50,11 @@ class MovieResultViewModel(private val application: Application,
         }
     }
 
-    private fun handleRandomMovieListResponse(responseList: Response<MovieResponseList>) : Resource<MovieResponseList> {
+    private suspend fun getRandomMovieQuery() : Response<MovieResponse> {
+        return repository.getRandomMovies((RANDOM_MOVIE_LOWER_BOUND..RANDOM_MOVIE_UPPER_BOUND).random().toString())
+    }
+
+    private fun handleRandomMovieListResponse(responseList: Response<MovieResponse>) : Resource<MovieResponse> {
         if (responseList.isSuccessful) {
             responseList.body()?.let { resultList ->
                 return Resource.Success(resultList)
