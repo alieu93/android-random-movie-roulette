@@ -7,7 +7,7 @@ At the moment, it is a simple Android page containing a button that makes an API
 In the future, I intend to augment the query to filter for categories such as genre, year of release, etc.
 
 # Technologies and methodologies used:
-- Glide
+- Glide (For displaying images)
 - Coroutines
 - Retrofit with Moshi JSON Parsing
 - MVVM with Data Binding
